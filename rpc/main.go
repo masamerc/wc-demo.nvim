@@ -9,12 +9,12 @@ import (
 	"github.com/neovim/go-client/nvim"
 )
 
-// function exposed to neovim via RPC
+// function / handler exposed to neovim via RPC
 func Hello(v *nvim.Nvim, args []string) error {
 	return v.WriteOut(fmt.Sprintf("Hello %s!!\n", strings.Join(args, " ")))
 }
 
-// another function for neovim
+// another function / handler for neovim
 func WordCount(v *nvim.Nvim, args []string) error {
 	if len(args) == 0 {
 		return v.WriteOut("Usage: WordCount <text>\n")
@@ -54,8 +54,8 @@ func main() {
 	stdout := os.Stdout
 	os.Stdout = os.Stderr
 
-	// create a client connected to stdio. the
-	// sconfigure the client to use tandard log package for logging.
+	// create a client connected to stdio.
+	// configure the client to use the standard log package for logging.
 	v, err := nvim.New(os.Stdin, stdout, stdout, log.Printf)
 	if err != nil {
 		log.Fatal(err)
